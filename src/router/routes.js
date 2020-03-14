@@ -24,14 +24,14 @@ let route = (path, name, title, icon, menu, component, breadcrumbs = []) => {
 }
 
 const routes = [
-    route('', 'home', 'Home', 'help', true, Home),
-    route('login', 'login', 'Login', 'help', false, Login),
-    route('animals', 'index_animals', 'Animals', 'help', true, Index_Animal),
-    route('habitats', 'index_habitats', 'Habitats', 'help', true, Index_Habitat),
-    route('sensors', 'sensors', 'Sensors', 'help', true, Index_PhysicalSensor),
+    route('', 'home', 'Home', 'mdi-help', true, Home),
+    route('login', 'login', 'Login', 'mdi-help', false, Login),
+    route('animals', 'index_animals', 'Animals', 'mdi-help', true, Index_Animal),
+    route('habitats', 'index_habitats', 'Habitats', 'mdi-help', true, Index_Habitat),
+    route('sensors', 'sensors', 'Sensors', 'mdi-help', true, Index_PhysicalSensor),
 
-    route('habitats/create', 'create_habitat', 'Create Habitat', 'help', false, Create_Habitat, 'index_habitats'),
-    route('habitats/:id', 'show_habitat', 'Habitat', 'help', false, Show_Habitat, 'index_habitats')
+    route('habitats/create', 'create_habitat', 'Create Habitat', 'mdi-help', false, Create_Habitat, 'index_habitats'),
+    route('habitats/:id', 'show_habitat', 'Habitat', 'mdi-help', false, Show_Habitat, 'index_habitats')
 ]
 
 export default routes
