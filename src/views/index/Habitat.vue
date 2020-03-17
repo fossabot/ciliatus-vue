@@ -2,7 +2,7 @@
    <div>
       <habitat-card-stream :on-initial-load-done="onInitialDone"> </habitat-card-stream>
 
-      <model-speed-dial :model="model" create edit del> </model-speed-dial>
+      <model-speed-dial :model="model" create> </model-speed-dial>
    </div>
 </template>
 

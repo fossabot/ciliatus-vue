@@ -4,7 +4,7 @@
 
 <script>
     import HabitatModel from "../../store/models/Core/HabitatModel"
-    import CreateHabitatForm from "../../components/forms/CreateHabitatForm";
+    import CreateHabitatForm from "../../components/forms/create/CreateHabitatForm";
     import View from "../View";
 
     export default {

@@ -14,7 +14,7 @@
                 type: String
             },
             classes: {
-                default: () => ['col-md-4', 'col-lg-3'],
+                default: () => ['col-sm-6', 'col-md-4', 'col-lg-4', 'col-xl-3'],
                 type: String|Array
             }
         }

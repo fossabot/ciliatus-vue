@@ -31,3 +31,8 @@ axios.defaults.headers.common = {
 }
 
 axios.get('/airlock/csrf-cookie')
+
+String.prototype.sprintf = function (...args) {
+    let i = 0;
+    return this.replace(/%s/g, () => args[i++]);
+}

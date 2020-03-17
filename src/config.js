@@ -5,7 +5,7 @@ export default {
         xDebug: true
     },
     web: {
-        basePath: window.location.protocol + '/' + window.location.hostname + (window.location.port ? ':' + window.location.port: '') + '/',
+        basePath: window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port: '') + '/',
         prefix: 'web/'
     }
 }

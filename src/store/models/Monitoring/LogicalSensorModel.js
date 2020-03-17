@@ -9,7 +9,7 @@ export default class LogicalSensorModel extends Model {
 
     static getRelationNames () {
         return [
-            'physical_sensor', 'type'
+            'physical_sensor', 'logical_sensor_type'
         ]
     }
 
@@ -26,11 +26,15 @@ export default class LogicalSensorModel extends Model {
             state_text: this.attr(null),
 
             physical_sensor: this.belongsTo(PhysicalSensorModel, 'physical_sensor_id'),
-            type: this.belongsTo(LogicalSensorTypeModel, 'logical_sensor_type_id')
+            logical_sensor_type: this.belongsTo(LogicalSensorTypeModel, 'logical_sensor_type_id')
         }
     }
 
     get current_reading_corrected_rounded () {
         return parseInt(this.current_reading_corrected * 100) / 100
+    }
+
+    get type () {
+        return this.logical_sensor_type
     }
 }

@@ -27,11 +27,11 @@ const routes = [
     route('', 'home', 'Home', 'mdi-help', true, Home),
     route('login', 'login', 'Login', 'mdi-help', false, Login),
     route('animals', 'index_animals', 'Animals', 'mdi-help', true, Index_Animal),
-    route('habitats', 'index_habitats', 'Habitats', 'mdi-help', true, Index_Habitat),
+    route('habitats', 'index_habitats', 'Habitats', 'mdi-application', true, Index_Habitat),
     route('sensors', 'sensors', 'Sensors', 'mdi-help', true, Index_PhysicalSensor),
 
-    route('habitats/create', 'create_habitat', 'Create Habitat', 'mdi-help', false, Create_Habitat, 'index_habitats'),
-    route('habitats/:id', 'show_habitat', 'Habitat', 'mdi-help', false, Show_Habitat, 'index_habitats')
+    route('habitats/create', 'create_habitat', 'Create Habitat', 'mdi-application', false, Create_Habitat, 'index_habitats'),
+    route('habitats/:id', 'show_habitat', 'Habitat', 'mdi-application', false, Show_Habitat, 'index_habitats')
 ]
 
 export default routes

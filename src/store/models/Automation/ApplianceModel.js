@@ -10,7 +10,7 @@ export default class ApplianceModel extends Model {
 
     static getRelationNames () {
         return [
-            'type', 'groups'//, 'habitats'
+            'appliance_type', 'groups'//, 'habitats'
         ]
     }
 
@@ -28,8 +28,12 @@ export default class ApplianceModel extends Model {
             last_maintenance_at: this.attr(null),
             next_maintenance_due_at: this.attr(null),
 
-            type: this.belongsTo(ApplianceTypeModel, 'appliance_type_id'),
+            appliance_type: this.belongsTo(ApplianceTypeModel, 'appliance_type_id'),
             groups: this.belongsToMany(ApplianceGroupModel, ApplianceApplianceGroupPivotModel, 'appliance_id', 'appliance_group_id')
         }
+    }
+
+    get type () {
+        return this.appliance_type
     }
 }

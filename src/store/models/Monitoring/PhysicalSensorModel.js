@@ -10,7 +10,7 @@ export default class PhysicalSensorModel extends Model {
 
     static getRelationNames() {
         return [
-            'logical_sensors', 'type', 'belongsToModel'
+            'logical_sensors', 'physical_sensor_type', 'belongsToModel'
         ]
     }
 
@@ -30,7 +30,7 @@ export default class PhysicalSensorModel extends Model {
             belongsToModel_id: this.attr(null),
 
             logical_sensors: this.hasMany(LogicalSensorModel, 'physical_sensor_id'),
-            type: this.belongsTo(PhysicalSensorTypeModel, 'physical_sensor_type_id'),
+            physical_sensor_type: this.belongsTo(PhysicalSensorTypeModel, 'physical_sensor_type_id'),
             belongsToModel: this.morphTo('belongsToModel_id', 'belongsToModel_entity')
         }
     }
@@ -44,6 +44,10 @@ export default class PhysicalSensorModel extends Model {
 
     refreshReading() {
         return new Promise(() => setTimeout(() => {}, 1000)) //Dummy
+    }
+
+    get type() {
+        return this.physical_sensor_type
     }
 }
 

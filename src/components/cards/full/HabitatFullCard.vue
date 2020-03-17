@@ -3,7 +3,7 @@
         </v-skeleton-loader>
         <v-card :loading="loading" v-else-if="object" outlined>
             <card-title v-if="object">
-                <template v-slot:icon>{{ object._icon }}</template>
+                <template v-slot:icon>mdi-application</template>
                 <template v-slot:title>{{ object.name }}</template>
                 <template v-slot:subtitle>{{ object.type.name }}</template>
             </card-title>

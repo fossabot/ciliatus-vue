@@ -3,6 +3,8 @@ import config from "../../config"
 
 export default class Model extends VuexModel {
     static baseUrl = config.api.basePath + config.api.prefix
+    static webBaseUrl = config.web.basePath + config.web.prefix
+    static icon = 'mdi-help'
 
     static apiConfig = {
         actions: {
@@ -10,6 +12,15 @@ export default class Model extends VuexModel {
                 method: 'get',
                 url: Model.baseUrl
             }
+        }
+    }
+
+    static webConfig = {
+        actions: {
+            create: Model.webBaseUrl + '%s/create',
+            show: Model.webBaseUrl + '%s/%s',
+            edit: Model.webBaseUrl + '%s/%s/edit',
+            del: Model.webBaseUrl + '%s/%s/delete',
         }
     }
 
@@ -56,8 +67,18 @@ export default class Model extends VuexModel {
         window.vueApp.$emit('ModelLoaded', this.name, id)
     }
 
-    static endpoint(operation) {
+    static endpoint(operation = 'fetch') {
         return Model.apiConfig.actions[operation].url + this.package + '/' + this.entity
+    }
+
+    static view(operation = 'index') {
+        if (operation !== 'index' && operation !== 'create') return
+        return String(Model.webConfig.actions[operation]).sprintf(this.entity)
+    }
+
+    view(operation = 'show') {
+        if (operation === 'show') return self.view()
+        return String(Model.webConfig.actions[operation]).sprintf(self.entity, this.id)
     }
 
 }

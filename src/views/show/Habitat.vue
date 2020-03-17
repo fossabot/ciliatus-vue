@@ -1,6 +1,8 @@
 <template>
     <v-container>
         <habitat-details :on-initial-load-done="onInitialDone" :id="id"> </habitat-details>
+
+        <model-speed-dial :model="model" create edit delete> </model-speed-dial>
     </v-container>
 </template>
 
@@ -8,6 +10,7 @@
     import ShowView from "./ShowView"
     import HabitatModel from "../../store/models/Core/HabitatModel"
     import HabitatDetails from "../../components/details/HabitatDetails"
+    import ModelSpeedDial from "../../components/misc/ModelSpeedDial";
 
     export default {
         extends: ShowView,
@@ -19,7 +22,7 @@
         },
 
         components: {
-            HabitatDetails
+            HabitatDetails, ModelSpeedDial
         },
 
         computed: {

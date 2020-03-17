@@ -15,7 +15,7 @@ export default class HabitatModel extends Model {
 
     static getRelationNames () {
         return [
-            'type', 'location', 'animals',
+            'habitat_type', 'location', 'animals',
             'physical_sensors', 'appliance_groups',
             'workflows'
         ]
@@ -32,7 +32,7 @@ export default class HabitatModel extends Model {
             depth: this.attr(null),
             _monitor: this.attr(null),
 
-            type: this.belongsTo(HabitatTypeModel, 'habitat_type_id'),
+            habitat_type: this.belongsTo(HabitatTypeModel, 'habitat_type_id'),
             location: this.belongsTo(LocationModel, 'location_id'),
             animals: this.hasMany(AnimalModel, 'habitat_id'),
             physical_sensors: this.morphMany(PhysicalSensorModel, 'belongsToModel_id', 'belongsToModel_entity'),
@@ -44,5 +44,9 @@ export default class HabitatModel extends Model {
     get type_name () {
         if (!this.type) return ''
         return this.type.name
+    }
+
+    get type () {
+        return this.habitat_type
     }
 }

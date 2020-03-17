@@ -7,13 +7,13 @@
                 <v-icon v-else>mdi-account-circle</v-icon>
             </v-btn>
         </template>
-        <v-btn fab small v-show="del" color="error">
+        <v-btn fab small v-show="del" color="error" :href="model.view('del')">
             <v-icon>mdi-delete</v-icon>
         </v-btn>
-        <v-btn fab small v-show="edit" color="warning">
+        <v-btn fab small v-show="edit" color="warning" :href="model.view('edit')">
             <v-icon>mdi-pencil</v-icon>
         </v-btn>
-        <v-btn fab small v-show="create" color="success">
+        <v-btn fab small v-show="create" color="success" :href="model.view('create')">
             <v-icon>mdi-plus</v-icon>
         </v-btn>
     </v-speed-dial>
@@ -34,6 +34,10 @@
             return {
                 fab: false
             }
+        },
+
+        created() {
+            window.console.log(this.model.view('create'))
         }
 
     }

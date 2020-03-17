@@ -46,14 +46,15 @@
 
         computed: {
             url () {
-                return this.submit.url_override ? this.submit.url_override : config.api.prefix + '/' + this.package + '/' + this.submit.entity
+                return this.submit.url_override ? this.submit.url_override : config.api.basePath + config.api.prefix + this.package + '/' + this.submit.entity
             }
         },
 
         methods: {
             async onSubmit () {
-                let res = await this.$refs[this.validation._ref].validate()
-                if (!res) return
+                // If we have a stepper form, wie expect the form to be validated
+                let valid = this.stepper != null ? true : await this.$refs[this.validation._ref].validate()
+                if (!valid) return
 
                 axios[this.submit.action](this.url, this.form, {
                     transformResponse: [data => data]

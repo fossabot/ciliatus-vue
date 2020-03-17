@@ -10,7 +10,7 @@ export default class LocationModel extends Model {
 
     static getRelationNames () {
         return [
-            'type', 'habitats', 'physical_sensors'
+            'location_type', 'habitats', 'physical_sensors'
         ]
     }
 
@@ -21,7 +21,7 @@ export default class LocationModel extends Model {
             location_type_id: this.attr(null),
             _monitor: this.attr(null),
 
-            type: this.belongsTo(LocationTypeModel, 'location_type_id'),
+            location_type: this.belongsTo(LocationTypeModel, 'location_type_id'),
             habitats: this.hasMany(HabitatModel, 'location_id'),
             physical_sensors: this.morphMany(PhysicalSensorModel, 'belongsToModel_id', 'belongsToModel_entity')
         }
@@ -30,5 +30,9 @@ export default class LocationModel extends Model {
     get type_name () {
         if (!this.type) return ''
         return this.type.name
+    }
+
+    get type () {
+        return this.location_type
     }
 }

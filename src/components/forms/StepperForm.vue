@@ -9,12 +9,19 @@
         data () {
             return {
                 stepper: 1,
+                steps: null
             }
         },
 
         methods: {
-            async onSubmitStep (step) {
-                if (await this.$refs['observer-step-' + step].validate()) this.stepper++
+            onGoBack () {
+                this.stepper--
+            },
+            onSkipToEnd () {
+                this.stepper = this.steps
+            },
+            async onSubmitStep (ref) {
+                if (await ref.validate()) this.stepper++
             }
         }
 
