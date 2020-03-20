@@ -4,10 +4,7 @@
             <v-col xs="12" sm="12" md="10" lg="6" xl="6" offset-md="1" offset-lg="3" offset-xl="3">
                 <v-form v-model="valid" @submit.prevent="onSubmit($data)">
                     <v-stepper v-model="stepper" vertical>
-                        <v-stepper-step :complete="stepper > 1" step="1">
-                            Select a name and type
-                        </v-stepper-step>
-
+                        <v-stepper-step :complete="stepper > 1" step="1">Select a name and type</v-stepper-step>
                         <stepper-form-step :step="1" :on-submit-step="onSubmitStep">
                             <ValidationProvider v-slot="{ errors }" name="Name" rules="required">
                                 <v-text-field outlined label="Name" v-model="form.name" :error-messages="errors"> </v-text-field>
@@ -28,38 +25,47 @@
                             </ValidationProvider>
                         </stepper-form-step>
 
-                        <v-stepper-step :complete="stepper > 2" step="2">Animals</v-stepper-step>
 
+                        <v-stepper-step :complete="stepper > 2" step="2">Animals</v-stepper-step>
                         <stepper-form-step :step="2" :on-submit-step="onSubmitStep" :on-go-back="onGoBack" :on-skip-to-end="onSkipToEnd">
-                            <ValidationProvider v-slot="{ errors }" name="Type" ref="animals-validator">
+                            <ValidationProvider v-slot="{ errors }" name="Animals" ref="animals-validator">
                                 <autocomplete-select :value="form.relations.animals" @input="(a) => {form.relations.animals = a}"
-                                                     label="Animal" title="Add animals" :error-messages="errors"
+                                                     label="Animals" title="Add animals" :error-messages="errors"
                                                      :validator="$refs['animals-validator']"
                                                      :multiple="true" :store-model="AnimalModel"> </autocomplete-select>
                             </ValidationProvider>
                         </stepper-form-step>
 
-                        <v-stepper-step :complete="stepper > 3" step="3">Sensors & Appliances</v-stepper-step>
 
+                        <v-stepper-step :complete="stepper > 3" step="3">Sensors & Appliances</v-stepper-step>
                         <stepper-form-step :step="3" :on-submit-step="onSubmitStep" :on-go-back="onGoBack" :on-skip-to-end="onSkipToEnd">
-                            <ValidationProvider v-slot="{ errors }" name="Type" ref="physical_sensors-validator">
+                            <ValidationProvider v-slot="{ errors }" name="Sensors" ref="physical_sensors-validator">
                                 <autocomplete-select :value="form.relations.physical_sensors" @input="(s) => {form.relations.physical_sensors = s}"
-                                                     label="Sensor" title="Add sensors" :multiple="true"
+                                                     label="Sensors" title="Add Sensors" :multiple="true"
                                                      :error-messages="errors"
                                                      :validator="$refs['physical_sensors-validator']"
                                                      :store-model="PhysicalSensorModel"> </autocomplete-select>
                             </ValidationProvider>
-                            <ValidationProvider v-slot="{ errors }" name="Type" ref="appliances-validator">
+
+                            <ValidationProvider v-slot="{ errors }" name="Appliances" ref="appliances-validator">
                                 <autocomplete-select :value="form.relations.appliances" @input="(a) => {form.relations.appliances = a}"
-                                                     label="Appliance" title="Add appliances" :multiple="true"
+                                                     label="Appliances" title="Add appliances" :multiple="true"
                                                      :error-messages="errors"
                                                      :validator="$refs['appliances-validator']"
                                                      :store-model="ApplianceModel"> </autocomplete-select>
                             </ValidationProvider>
+
+                            <ValidationProvider v-slot="{ errors }" name="Appliance Groups" ref="appliance_groups-validator">
+                                <autocomplete-select :value="form.relations.appliance_groups" @input="(a) => {form.relations.appliance_groups = a}"
+                                                     label="Appliance Groups" title="Add Appliance Groups" :multiple="true"
+                                                     :error-messages="errors" :filter="{is_builtin:'false'}"
+                                                     :validator="$refs['appliance_groups-validator']"
+                                                     :store-model="ApplianceGroupModel"> </autocomplete-select>
+                            </ValidationProvider>
                         </stepper-form-step>
 
-                        <v-stepper-step step="4">Verify</v-stepper-step>
 
+                        <v-stepper-step step="4">Verify</v-stepper-step>
                         <stepper-form-finish :step="4" :on-go-back="onGoBack">
                             <template v-if="stepper === 4">
                                 <div class="heading">Habitat</div>
@@ -97,6 +103,7 @@
     import StepperFormStep from "../StepperFormStep";
     import StepperFormFinish from "../StepperFormFinish";
     import LocationModel from "../../../store/models/Core/LocationModel";
+    import ApplianceGroupModel from "../../../store/models/Automation/ApplianceGroupModel";
 
     export default {
 
@@ -113,8 +120,9 @@
                 HabitatTypeModel: HabitatTypeModel,
                 AnimalModel: AnimalModel,
                 PhysicalSensorModel: PhysicalSensorModel,
-                ApplianceModel: ApplianceModel,
                 LocationModel: LocationModel,
+                ApplianceModel: ApplianceModel,
+                ApplianceGroupModel: ApplianceGroupModel,
                 submit: {
                     entity: HabitatModel.entity,
                     action: FormActionEnum.CREATE
@@ -126,12 +134,14 @@
                         location: null,
                         animals: [],
                         physical_sensors: [],
-                        appliances: []
+                        appliances: [],
+                        appliance_groups: []
                     }
                 },
                 validation: {
                     name: 'required',
-                    habitat_type: 'required'
+                    habitat_type: 'required',
+                    location: 'required'
                 },
                 steps: 4
             }

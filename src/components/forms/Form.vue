@@ -65,8 +65,8 @@
                     }
 
                     let resp = JSONBigInt.parse(response.data)
-                    if (resp.length > 0) {
-                        window.location.href = resp[0]._self
+                    if (resp.data.length > 0) {
+                        window.location.href = config.web.basePath + config.web.prefix + resp.data[0]._entity + '/' + resp.data[0].id
                     }
                 }).catch((error) => {
                     this.event.error(ErrorParser.parse(error))
