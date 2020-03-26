@@ -63,7 +63,8 @@
             title: String,
             multiple: Boolean,
             errorMessages: Array,
-            validator: Object
+            validator: Object,
+            default: Number
         },
 
         methods: {
@@ -78,6 +79,10 @@
                 })
                 this.$emit('input', e)
             }
+        },
+
+        created () {
+            this.search_model = this.default
         }
     }
 

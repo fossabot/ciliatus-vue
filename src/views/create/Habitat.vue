@@ -5,10 +5,10 @@
 <script>
     import HabitatModel from "../../store/models/Core/HabitatModel"
     import CreateHabitatForm from "../../components/forms/create/CreateHabitatForm";
-    import View from "../View";
+    import CreateView from "./CreateView";
 
     export default {
-        extends: View,
+        extends: CreateView,
 
         data () {
             return {

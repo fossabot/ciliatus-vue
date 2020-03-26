@@ -7,6 +7,7 @@ const Index_Habitat = () => import('../views/index/Habitat')
 const Index_PhysicalSensor = () => import('../views/index/PhysicalSensor')
 const Show_Habitat = () => import('../views/show/Habitat')
 const Create_Habitat = () => import('../views/create/Habitat')
+const Edit_Habitat = () => import('../views/edit/Habitat')
 
 let route = (path, name, title, icon, menu, component, breadcrumbs = []) => {
     if (!Array.isArray(breadcrumbs)) breadcrumbs = [breadcrumbs]
@@ -31,6 +32,7 @@ const routes = [
     route('sensors', 'sensors', 'Sensors', 'mdi-help', true, Index_PhysicalSensor),
 
     route('habitats/create', 'create_habitat', 'Create Habitat', 'mdi-application', false, Create_Habitat, 'index_habitats'),
+    route('habitats/:id/edit', 'edit_habitat', 'Edit Habitat', 'mdi-application', false, Edit_Habitat, 'index_habitats'),
     route('habitats/:id', 'show_habitat', 'Habitat', 'mdi-application', false, Show_Habitat, 'index_habitats')
 ]
 

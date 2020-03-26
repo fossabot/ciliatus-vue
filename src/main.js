@@ -30,7 +30,7 @@ axios.defaults.headers.common = {
     "Accept": "application/json"
 }
 
-axios.get('/airlock/csrf-cookie')
+axios.get('/sanctum/csrf-cookie')
 
 String.prototype.sprintf = function (...args) {
     let i = 0;
