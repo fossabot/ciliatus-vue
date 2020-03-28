@@ -1,9 +1,6 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
 import routes from "./routes"
-import axios from "axios";
-import Link from "../util/Link";
-import JSONBigInt from "json-bigint";
 
 Vue.use(VueRouter)
 

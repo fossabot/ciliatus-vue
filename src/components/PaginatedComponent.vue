@@ -26,7 +26,8 @@
                     filter: {}
                 },
                 search: null,
-                search_mapping: {}
+                search_mapping: {},
+                updateCallbacks: []
             }
         },
 
@@ -105,8 +106,17 @@
             receivedPaginatedItemsCallback(response, ids) {
                 this.updatePagination(response.meta.pagination, ids)
                 this.clearLoadingError()
+                this.callUpdateCallbacks()
                 this.initialDone()
                 this.loading = false
+            },
+
+            callUpdateCallbacks () {
+                this.updateCallbacks.forEach((c) => c())
+            },
+
+            pushUpdateCallback (callback) {
+                this.updateCallbacks.push(callback)
             }
         },
 

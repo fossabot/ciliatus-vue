@@ -4,9 +4,6 @@
 
 <script>
     import Model from "../store/models/Model"
-    import axios from "axios";
-    import Link from "../util/Link";
-    import router from "../router";
 
     export default {
 

@@ -119,3 +119,14 @@ div.v-sheet.v-list > .v-list-item:nth-last-child(1) {
 .masonry-item {
   float: left;
 }
+
+/*
+ * Custom types for v-skeleton-loader
+ */
+.v-skeleton-loader__autocomplete {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  width: 100%;
+  height: 48px;
+  margin-bottom: 30px;
+}

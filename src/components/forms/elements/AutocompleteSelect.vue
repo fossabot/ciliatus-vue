@@ -64,7 +64,7 @@
             multiple: Boolean,
             errorMessages: Array,
             validator: Object,
-            default: Number
+            default: Number|Array
         },
 
         methods: {
@@ -78,11 +78,17 @@
                     pristine: false
                 })
                 this.$emit('input', e)
+            },
+
+            onSuggestionsUpdated () {
+                if (this.initial && this.default) {
+                    this.search_model = this.default
+                }
             }
         },
 
         created () {
-            this.search_model = this.default
+            this.pushUpdateCallback(this.onSuggestionsUpdated)
         }
     }
 

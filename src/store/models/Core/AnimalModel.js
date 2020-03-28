@@ -6,6 +6,7 @@ export default class AnimalModel extends Model {
     static name = 'Animal'
     static entity = 'animals'
     static package = 'core'
+    static menu = true
 
     static getRelationNames () {
         return [

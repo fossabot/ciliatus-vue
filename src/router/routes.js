@@ -1,17 +1,12 @@
 import config from "../config";
+import Link from "../util/Link";
+import models from "../store/models"
 
-const Home = () => import('../views/Home')
-const Login = () => import('../views/Login')
-const Index_Animal = () => import('../views/index/Animal')
-const Index_Habitat = () => import('../views/index/Habitat')
-const Index_PhysicalSensor = () => import('../views/index/PhysicalSensor')
-const Show_Habitat = () => import('../views/show/Habitat')
-const Create_Habitat = () => import('../views/create/Habitat')
-const Edit_Habitat = () => import('../views/edit/Habitat')
 
-let route = (path, name, title, icon, menu, component, breadcrumbs = []) => {
+let route = (model, path, name, title, icon, menu, component, breadcrumbs = []) => {
     if (!Array.isArray(breadcrumbs)) breadcrumbs = [breadcrumbs]
     return {
+        model: model,
         path: '/' + config.web.prefix + path,
         name: name,
         icon: icon,
@@ -24,16 +19,76 @@ let route = (path, name, title, icon, menu, component, breadcrumbs = []) => {
     }
 }
 
-const routes = [
-    route('', 'home', 'Home', 'mdi-help', true, Home),
-    route('login', 'login', 'Login', 'mdi-help', false, Login),
-    route('animals', 'index_animals', 'Animals', 'mdi-help', true, Index_Animal),
-    route('habitats', 'index_habitats', 'Habitats', 'mdi-application', true, Index_Habitat),
-    route('sensors', 'sensors', 'Sensors', 'mdi-help', true, Index_PhysicalSensor),
-
-    route('habitats/create', 'create_habitat', 'Create Habitat', 'mdi-application', false, Create_Habitat, 'index_habitats'),
-    route('habitats/:id/edit', 'edit_habitat', 'Edit Habitat', 'mdi-application', false, Edit_Habitat, 'index_habitats'),
-    route('habitats/:id', 'show_habitat', 'Habitat', 'mdi-application', false, Show_Habitat, 'index_habitats')
+let routes = [
+    route('', 'home', 'Home', 'mdi-help', true, () => import('../views/Home')),
+    route('login', 'login', 'Login', 'mdi-help', false, () => import('../views/Login'))
 ]
+
+Object.keys(models).forEach((k) => {
+    let m = models[k]
+    routes.push(
+        route(
+            m,
+            m.entity,
+            'index_' + m.entity,
+            m.name,
+            m.icon,
+            m.menu,
+            () => import('../views/index/' + m.name)
+        )
+    )
+
+    routes.push(
+        route(
+            m,
+            m.entity + '/create',
+            'create_' + m.entity,
+            m.name,
+            m.icon,
+            false,
+            () => import('../views/create/' + m.name),
+            'index_' + m.entity
+        )
+    )
+
+    routes.push(
+        route(
+            m,
+            m.entity + '/:id',
+            'show_' + m.entity,
+            null,
+            m.icon,
+            false,
+            () => import('../views/show/' + m.name),
+            'index_' + m.entity
+        )
+    )
+
+    routes.push(
+        route(
+            m,
+            m.entity + '/:id/edit',
+            'edit_' + m.entity,
+            null,
+            m.icon,
+            false,
+            () => import('../views/edit/' + m.name),
+            ['index_' + m.entity, 'show_' + m.entity ]
+        )
+    )
+
+    routes.push(
+        route(
+            m,
+            m.entity + '/:id/delete',
+            'delete_' + m.entity,
+            null,
+            m.icon,
+            false,
+            () => import('../views/delete/' + m.name),
+            ['index_' + m.entity, 'show_' + m.entity ]
+        )
+    )
+})
 
 export default routes

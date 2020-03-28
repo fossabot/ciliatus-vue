@@ -5,6 +5,7 @@ export default class Model extends VuexModel {
     static baseUrl = config.api.basePath + config.api.prefix
     static webBaseUrl = config.web.basePath + config.web.prefix
     static icon = 'mdi-help'
+    static menu = false
 
     static apiConfig = {
         actions: {

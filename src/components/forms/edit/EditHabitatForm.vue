@@ -37,7 +37,7 @@
                     name: this.object.name,
                     relations: {
                         habitat_type: this.object.habitat_type.id,
-                        location: this.object.location.location_type.id,
+                        location: this.object.location.id,
                         animals: this.object.animals.map((a) => a.id),
                         physical_sensors: this.object.animals.map((s) => s.id),
                         appliances: this.object.appliance_groups.filter((g) => g.is_builtin).map((g) => g.appliances.map((a) => a.id)),
@@ -45,6 +45,7 @@
                     }
                 }
                 this.ready = true
+                this.$root.$emit('RecomputeBreadcrumbs')
             })
         }
 

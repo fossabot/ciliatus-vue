@@ -10,18 +10,18 @@
                                 <v-text-field outlined label="Name" v-model="form.name" :error-messages="errors"> </v-text-field>
                             </ValidationProvider>
 
-                            <ValidationProvider v-slot="{ errors }" name="Type" rules="required" ref="habitat-type-validator" v-if="ready">
-                                <autocomplete-select :value="form.relations.habitat_type" @input="(t) => {form.relations.habitat_type = t}"
+                            <v-skeleton-loader type="autocomplete3" v-if="!ready"> </v-skeleton-loader>
+                            <ValidationProvider v-slot="{ errors }" name="Type" rules="required" ref="habitat-type-validator" v-else>
+                                <autocomplete-select :default="form.relations.habitat_type" @input="(t) => {form.relations.habitat_type = t}"
                                                      label="Type" title="Select a type" :error-messages="errors"
-                                                     :default="form.relations.habitat_type"
                                                      :validator="$refs['habitat-type-validator']"
                                                      :store-model="HabitatTypeModel"> </autocomplete-select>
                             </ValidationProvider>
 
-                            <ValidationProvider v-slot="{ errors }" name="Location" rules="required" ref="location-validator" v-if="ready">>
-                                <autocomplete-select :value="form.relations.location" @input="(t) => {form.relations.location = t}"
+                            <v-skeleton-loader type="autocomplete" v-if="!ready"> </v-skeleton-loader>
+                            <ValidationProvider v-slot="{ errors }" name="Location" rules="required" ref="location-validator" v-else>
+                                <autocomplete-select :default="form.relations.location" @input="(t) => {form.relations.location = t}"
                                                      label="Location" title="Select a Location" :error-messages="errors"
-                                                     :default="form.relations.location"
                                                      :validator="$refs['location-validator']"
                                                      :store-model="LocationModel"> </autocomplete-select>
                             </ValidationProvider>
@@ -31,7 +31,7 @@
                         <v-stepper-step :complete="stepper > 2" step="2">Animals</v-stepper-step>
                         <stepper-form-step :step="2" :on-submit-step="onSubmitStep" :on-go-back="onGoBack" :on-skip-to-end="onSkipToEnd">
                             <ValidationProvider v-slot="{ errors }" name="Animals" ref="animals-validator">
-                                <autocomplete-select :value="form.relations.animals" @input="(a) => {form.relations.animals = a}"
+                                <autocomplete-select :default="form.relations.animals" @input="(a) => {form.relations.animals = a}"
                                                      label="Animals" title="Add animals" :error-messages="errors"
                                                      :validator="$refs['animals-validator']"
                                                      :multiple="true" :store-model="AnimalModel"> </autocomplete-select>

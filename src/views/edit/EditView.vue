@@ -17,8 +17,7 @@
         },
 
         mounted () {
-            if (this.object) this.setTitle(this.object.name)
-            else this.setTitle('...')
+            this.setTitle('Edit')
         },
 
         created () {

@@ -12,6 +12,8 @@ export default class HabitatModel extends Model {
     static name = 'Habitat'
     static entity = 'habitats'
     static package = 'core'
+    static icon = 'mdi-application'
+    static menu = true
 
     static getRelationNames () {
         return [

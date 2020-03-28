@@ -70,6 +70,12 @@ export default class ModelFactory {
         return url
     }
 
+    static fetchIfNecessary (model, id, callback = null, error_callback = null) {
+        if (model.find(id) == null) {
+            this.fetch(model, id, callback, error_callback)
+        }
+    }
+
     static fetch (model, id, callback = null, error_callback = null) {
         axios.get(this.getFetchUrl(model, id), {
             transformResponse: [data => data]

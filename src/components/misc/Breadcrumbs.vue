@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-breadcrumbs :items="breadcrumbs" large></v-breadcrumbs>
+        <v-breadcrumbs :items="breadcrumbs" large> </v-breadcrumbs>
     </div>
 </template>
 
@@ -28,10 +28,23 @@
                     let route = routes.filter((route) => route.name === breadcrumb)
                     if (route.length < 1) return
 
+                    let path = route[0].path
+                    let match = path.matchAll(/:([^\/]+)/g)
+                    let m = ''
+                    while ((m = match.next().value) != null) {
+                        path = path.replace(m[0], this.$route.params[m[1]])
+                    }
+
+                    let title = route[0].meta.title
+                    if (title === null) {
+                        let model = route[0].model.find(this.$route.params.id)
+                        title = model ? model.name : '...'
+                    }
+
                     items.push({
-                        text: route[0].meta.title,
+                        text: title,
                         disabled: false,
-                        href: route[0].path
+                        href: path
                     })
                 })
 

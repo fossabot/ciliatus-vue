@@ -72,7 +72,7 @@
 
         computed: {
             object () {
-                let query = this.model.query().with('type')
+                let query = this.model.query().with('habitat_type')
                 if (!this.noAnimals) query = query.with('animals')
 
                 return query.find(this.id)

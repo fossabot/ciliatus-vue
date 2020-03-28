@@ -13,7 +13,8 @@
                 submit: {
                     entity: HabitatModel.entity,
                     action: FormActionEnum.CREATE
-                }
+                },
+                ready: true
             }
         }
 
