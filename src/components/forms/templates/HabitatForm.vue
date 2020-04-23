@@ -30,35 +30,40 @@
 
                         <v-stepper-step :complete="stepper > 2" step="2">Animals</v-stepper-step>
                         <stepper-form-step :step="2" :on-submit-step="onSubmitStep" :on-go-back="onGoBack" :on-skip-to-end="onSkipToEnd">
-                            <ValidationProvider v-slot="{ errors }" name="Animals" ref="animals-validator">
+                            <v-skeleton-loader type="autocomplete" v-if="!ready"> </v-skeleton-loader>
+                            <ValidationProvider v-slot="{ errors }" name="Animals" ref="animals-validator" v-else>
                                 <autocomplete-select :default="form.relations.animals" @input="(a) => {form.relations.animals = a}"
-                                                     label="Animals" title="Add animals" :error-messages="errors"
+                                                     label="Animals" title="Add animals" :multiple="true"
+                                                     :error-messages="errors"
                                                      :validator="$refs['animals-validator']"
-                                                     :multiple="true" :store-model="AnimalModel"> </autocomplete-select>
+                                                     :store-model="AnimalModel"> </autocomplete-select>
                             </ValidationProvider>
                         </stepper-form-step>
 
 
                         <v-stepper-step :complete="stepper > 3" step="3">Sensors & Appliances</v-stepper-step>
                         <stepper-form-step :step="3" :on-submit-step="onSubmitStep" :on-go-back="onGoBack" :on-skip-to-end="onSkipToEnd">
-                            <ValidationProvider v-slot="{ errors }" name="Sensors" ref="physical_sensors-validator">
-                                <autocomplete-select :value="form.relations.physical_sensors" @input="(s) => {form.relations.physical_sensors = s}"
+                            <v-skeleton-loader type="autocomplete" v-if="!ready"> </v-skeleton-loader>
+                            <ValidationProvider v-slot="{ errors }" name="Sensors" ref="physical_sensors-validator" v-else>
+                                <autocomplete-select :default="form.relations.physical_sensors" @input="(s) => {form.relations.physical_sensors = s}"
                                                      label="Sensors" title="Add Sensors" :multiple="true"
                                                      :error-messages="errors"
                                                      :validator="$refs['physical_sensors-validator']"
                                                      :store-model="PhysicalSensorModel"> </autocomplete-select>
                             </ValidationProvider>
 
-                            <ValidationProvider v-slot="{ errors }" name="Appliances" ref="appliances-validator">
-                                <autocomplete-select :value="form.relations.appliances" @input="(a) => {form.relations.appliances = a}"
+                            <v-skeleton-loader type="autocomplete" v-if="!ready"> </v-skeleton-loader>
+                            <ValidationProvider v-slot="{ errors }" name="Appliances" ref="appliances-validator" v-else>
+                                <autocomplete-select :default="form.relations.appliances" @input="(a) => {form.relations.appliances = a}"
                                                      label="Appliances" title="Add appliances" :multiple="true"
                                                      :error-messages="errors"
                                                      :validator="$refs['appliances-validator']"
                                                      :store-model="ApplianceModel"> </autocomplete-select>
                             </ValidationProvider>
 
-                            <ValidationProvider v-slot="{ errors }" name="Appliance Groups" ref="appliance_groups-validator">
-                                <autocomplete-select :value="form.relations.appliance_groups" @input="(a) => {form.relations.appliance_groups = a}"
+                            <v-skeleton-loader type="autocomplete" v-if="!ready"> </v-skeleton-loader>
+                            <ValidationProvider v-slot="{ errors }" name="Appliance Groups" ref="appliance_groups-validator" v-else>
+                                <autocomplete-select :default="form.relations.appliance_groups" @input="(a) => {form.relations.appliance_groups = a}"
                                                      label="Appliance Groups" title="Add Appliance Groups" :multiple="true"
                                                      :error-messages="errors" :filter="{is_builtin:'false'}"
                                                      :validator="$refs['appliance_groups-validator']"

@@ -18,10 +18,11 @@ export default class Model extends VuexModel {
 
     static webConfig = {
         actions: {
-            create: Model.webBaseUrl + '%s/create',
-            show: Model.webBaseUrl + '%s/%s',
-            edit: Model.webBaseUrl + '%s/%s/edit',
-            del: Model.webBaseUrl + '%s/%s/delete',
+            index: '/' + config.web.prefix + '%s',
+            create: '/' + config.web.prefix + '%s/create',
+            show: '/' + config.web.prefix + '%s/%s',
+            edit: '/' + config.web.prefix + '%s/%s/edit',
+            del: '/' + config.web.prefix + '%s/%s/delete',
         }
     }
 
@@ -72,14 +73,9 @@ export default class Model extends VuexModel {
         return Model.apiConfig.actions[operation].url + this.package + '/' + this.entity
     }
 
-    static view(operation = 'index') {
-        if (operation !== 'index' && operation !== 'create') return
-        return String(Model.webConfig.actions[operation]).sprintf(this.entity)
-    }
-
-    view(operation = 'show') {
-        if (operation === 'show') return self.view()
-        return String(Model.webConfig.actions[operation]).sprintf(self.entity, this.id)
+    static view(operation = 'index', entity = null) {
+        if (entity == null) return String(Model.webConfig.actions[operation]).sprintf(this.entity)
+        return String(Model.webConfig.actions[operation]).sprintf(this.entity, entity.id)
     }
 
 }

@@ -30,6 +30,7 @@ export default class ModelFactory {
 
     static getWhereInUrlArtifact (field, ids) {
         let filter = '';
+        if (!Array.isArray(ids)) ids = [ids]
         ids.forEach((id) => filter += '&filter[' + field + ']=' + id)
 
         return filter

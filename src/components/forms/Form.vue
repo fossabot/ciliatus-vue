@@ -22,6 +22,7 @@
 
         data () {
             return {
+                component_id: '',
                 redirect: {
                     success: null,
                     error: null
@@ -81,7 +82,11 @@
 
                 this.$toast.error(error)
             }
-        }
+        },
+
+        created () {
+            this.component_id = 'c-' + Math.random().toString(36).substring(7);
+        },
 
     }
 

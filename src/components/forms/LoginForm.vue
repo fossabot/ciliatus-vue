@@ -7,6 +7,11 @@
                     <v-card-text>
                         <div class="title text-center text-uppercase pa-5">Sign in</div>
                     </v-card-text>
+                    <v-card-text v-show="login_failed">
+                        <v-container>
+                            <v-alert outlined type="error">Login failed.</v-alert>
+                        </v-container>
+                    </v-card-text>
                     <v-card-text>
                         <v-container>
                             <ValidationObserver :ref="validation._ref" v-slot="{ validate, reset }">
@@ -76,7 +81,6 @@
         methods: {
             onError (e) {
                 this.login_failed = true
-                window.console.log('Login failed')
             },
 
             onSuccess () {

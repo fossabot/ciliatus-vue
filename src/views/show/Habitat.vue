@@ -2,7 +2,7 @@
     <v-container>
         <habitat-details :on-initial-load-done="onInitialDone" :id="id"> </habitat-details>
 
-        <model-speed-dial :model="model" create edit delete> </model-speed-dial>
+        <model-speed-dial :model="model" :object="object" create edit delete> </model-speed-dial>
     </v-container>
 </template>
 

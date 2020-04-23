@@ -9,7 +9,8 @@
         extends: Component,
 
         props: {
-            filter: Object
+            filter: Object,
+            delayLoadingUntilEvent: String
         },
 
         data () {
@@ -74,6 +75,14 @@
                 ModelFactory.fetchWithPagination(this.model, this.pagination, this.receivedPaginatedItemsCallback, this.loadingError, this.relations)
             },
 
+            addCurrentPageItemIds (ids) {
+                if (!Array.isArray(ids)) ids = [ids]
+                if (this.model.entity === 'animals') window.console.log(this.pagination.current_page_item_ids)
+                if (this.model.entity === 'animals') ids
+                this.pagination.current_page_item_ids = this.pagination.current_page_item_ids.concat(ids)
+                if (this.model.entity === 'animals') window.console.log(this.pagination.current_page_item_ids)
+            },
+
             updatePagination (pagination, current_page_item_ids = null) {
                 this.pagination.items = pagination.items
                 this.pagination.last_page = pagination.last_page
@@ -121,7 +130,12 @@
         },
 
         mounted () {
-            this.pagination.filter = this.filter
+            if (this.filter) {
+                Object.keys(this.filter).forEach((k) => {
+                    this.pagination.filter[k] = this.filter[k];
+                })
+            }
+
             this.loadPagination()
             this.loadPage()
         }

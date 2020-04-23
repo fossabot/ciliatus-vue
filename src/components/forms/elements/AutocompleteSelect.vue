@@ -53,6 +53,7 @@
 <script>
 
     import Autocomplete from "./Autocomplete";
+    import ModelFactory from "../../../store/models/ModelFactory";
 
     export default {
 
@@ -82,7 +83,12 @@
 
             onSuggestionsUpdated () {
                 if (this.initial && this.default) {
+                    ModelFactory.fetchMultiple(this.model, this.default)
                     this.search_model = this.default
+
+                    this.onChange(this.default)
+
+                    delete this.pagination.filter.id
                 }
             }
         },
@@ -90,6 +96,7 @@
         created () {
             this.pushUpdateCallback(this.onSuggestionsUpdated)
         }
+
     }
 
 </script>

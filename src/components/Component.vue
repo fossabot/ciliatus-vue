@@ -15,6 +15,7 @@
 
         data () {
             return {
+                component_id: null,
                 initial: true,
                 loading: false,
                 error: false,
@@ -60,6 +61,10 @@
             link (...args) {
                 return Link.link(...args)
             }
+        },
+
+        created () {
+            this.component_id = 'c-' + Math.random().toString(36).substring(7);
         },
 
         mounted () {

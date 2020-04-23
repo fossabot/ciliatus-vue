@@ -1,6 +1,10 @@
 <template>
     <div>
-        <v-breadcrumbs :items="breadcrumbs" large> </v-breadcrumbs>
+        <v-breadcrumbs :items="breadcrumbs" large>
+            <template v-slot:item="{ item }">
+                <v-breadcrumbs-item :to="item.to" :exact="true" :disabled="item.disabled" :ripple="true">{{ item.text }}</v-breadcrumbs-item>
+            </template>
+        </v-breadcrumbs>
     </div>
 </template>
 
@@ -44,7 +48,7 @@
                     items.push({
                         text: title,
                         disabled: false,
-                        href: path
+                        to: path
                     })
                 })
 

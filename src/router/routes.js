@@ -1,5 +1,4 @@
 import config from "../config";
-import Link from "../util/Link";
 import models from "../store/models"
 
 
@@ -20,8 +19,8 @@ let route = (model, path, name, title, icon, menu, component, breadcrumbs = []) 
 }
 
 let routes = [
-    route('', 'home', 'Home', 'mdi-help', true, () => import('../views/Home')),
-    route('login', 'login', 'Login', 'mdi-help', false, () => import('../views/Login'))
+    route(null, '', 'home', 'Home', 'mdi-help', true, () => import('../views/Home')),
+    route(null, 'login', 'login', 'Login', 'mdi-help', false, () => import('../views/Login'))
 ]
 
 Object.keys(models).forEach((k) => {

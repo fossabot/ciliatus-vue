@@ -45,10 +45,18 @@
 
         mounted () {
             this.pagination.per_page = 15
+
+            if (this.default) {
+                this.pagination.filter.id = Array.isArray(this.default) ? 'in:' + this.default.join(',') : this.default
+            }
         },
 
         created () {
             this.model = this.storeModel
+
+            this.pushUpdateCallback(() => {
+                this.addCurrentPageItemIds(this.search_model)
+            })
         }
 
     }
