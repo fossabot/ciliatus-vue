@@ -165,12 +165,6 @@
             habitat_type () {
                 return HabitatTypeModel.find(this.form.relations.habitat_type)
             }
-        },
-
-        watch: {
-            animalIds () {
-                ModelFactory.fetchMultiple(AnimalModel, this.form.relations.animals)
-            }
         }
 
     }

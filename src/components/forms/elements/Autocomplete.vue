@@ -29,7 +29,7 @@
         watch: {
             search_str (val) {
                 this.updateFilter(val)
-                this.loadPage()
+                //this.loadPage()
             },
             search_model () {
                 this.$emit('input', this.search_model)
@@ -43,18 +43,20 @@
             }
         },
 
-        mounted () {
+        created () {
+            this.model = this.storeModel
             this.pagination.per_page = 15
 
             if (this.default) {
                 this.pagination.filter.id = Array.isArray(this.default) ? 'in:' + this.default.join(',') : this.default
             }
-        },
-
-        created () {
-            this.model = this.storeModel
 
             this.pushUpdateCallback(() => {
+                if (this.default && this.initial) {
+                    delete this.pagination.filter.id
+                    this.loadPage()
+                }
+
                 this.addCurrentPageItemIds(this.search_model)
             })
         }
