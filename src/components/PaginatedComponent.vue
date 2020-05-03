@@ -57,7 +57,7 @@
             loadMore () {
                 if (this.pagination.current_page <= this.pagination.last_page) {
                     if (this.pagination.current_page < this.pagination.last_page) this.pagination.current_page++
-                    //this.loadPage()
+                    this.loadPage()
                 }
             },
 
@@ -92,7 +92,7 @@
 
             updatePage (page) {
                 this.pagination.current_page = page
-                //this.loadPage()
+                this.loadPage()
             },
 
             updateSortBy (sort_by) {
@@ -102,14 +102,14 @@
             updateSortDesc (sort_desc) {
                 this.pagination.sort_direction = sort_desc[0] ? 'desc' : 'asc'
                 setTimeout(() => { //Make sure we caught updateSortBy event before executing update
-                    //this.loadPage()
+                    this.loadPage()
                 }, 100)
             },
 
             updateSearch (key) {
                 if (key.key !== "Enter") return
                 this.pagination.filter = Search.resolveSearchStringToApiRequest(this.search, this.search_mapping)
-                //this.loadPage()
+                this.loadPage()
             },
 
             receivedPaginatedItemsCallback(response, ids) {

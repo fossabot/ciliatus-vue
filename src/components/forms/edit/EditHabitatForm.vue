@@ -41,7 +41,7 @@
                         animals: this.object.animals.map((a) => a.id),
                         physical_sensors: this.object.physical_sensors.map((s) => s.id),
                         appliances: this.object.appliance_groups.filter((g) => g.is_builtin).map((g) => g.appliances.map((a) => a.id)),
-                        appliance_groups: this.object.appliance_groups.map((g) => g.id)
+                        appliance_groups: this.object.appliance_groups.filter((g) => !g.is_builtin).map((g) => g.id)
                     }
                 }
 
