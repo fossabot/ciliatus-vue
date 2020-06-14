@@ -75,17 +75,17 @@
                         <v-stepper-step step="4">Verify</v-stepper-step>
                         <stepper-form-finish :step="4" :on-go-back="onGoBack">
                             <template v-if="stepper === 4">
-                                <div class="heading">Habitat</div>
-                                <div>{{ form.name }}</div>
-                                <div>{{ habitat_type.type }}</div>
-
-                                <div class="heading">Animals</div>
-                                <div v-for="animal in animals" :key="animal.id">
-                                    {{ animal.name }}
-                                    <v-alert v-if="animal.habitat_id" dense type="info">
-                                        Animal will be removed from <habitat-inline :linked-object="animal.habitat" :id="animal.id"> </habitat-inline>
-                                    </v-alert>
-                                </div>
+                                <template v-if="animals.filter((a) => a.habitat_id !== id).length > 0">
+                                    <div v-for="animal in animals.filter((a) => a.habitat_id !== id)" :key="animal.id">
+                                        <v-alert v-if="animal.habitat_id" border="left" colored-border color="warning">
+                                            Animal <animal-inline :linked-object="animal" :id="animal.id"> </animal-inline>
+                                            will be removed from <habitat-inline :linked-object="animal.habitat" :id="animal.habitat_id"> </habitat-inline>
+                                        </v-alert>
+                                    </div>
+                                </template>
+                                <template v-else>
+                                    <v-icon color="success">mdi-check</v-icon> Everything looks good.
+                                </template>
                             </template>
                         </stepper-form-finish>
                     </v-stepper>
@@ -97,20 +97,20 @@
 
 <script>
 
-    import FormActionEnum from "../FormActionEnum";
+    import FormActionEnum from "../FormActionEnum"
     import AutocompleteSelect from "../elements/AutocompleteSelect"
-    import AnimalModel from "../../../store/models/Core/AnimalModel";
-    import ApplianceModel from "../../../store/models/Automation/ApplianceModel";
-    import HabitatModel from '../../../store/models/Core/HabitatModel';
-    import HabitatTypeModel from '../../../store/models/Core/HabitatTypeModel';
-    import PhysicalSensorModel from "../../../store/models/Monitoring/PhysicalSensorModel";
-    import StepperForm from "../StepperForm";
-    import HabitatInline from "../../inline/HabitatInline";
-    import ModelFactory from "../../../store/models/ModelFactory";
-    import StepperFormStep from "../StepperFormStep";
-    import StepperFormFinish from "../StepperFormFinish";
-    import LocationModel from "../../../store/models/Core/LocationModel";
-    import ApplianceGroupModel from "../../../store/models/Automation/ApplianceGroupModel";
+    import AnimalInline from "../../inline/AnimalInline"
+    import HabitatInline from "../../inline/HabitatInline"
+    import AnimalModel from "../../../store/models/Core/AnimalModel"
+    import ApplianceModel from "../../../store/models/Automation/ApplianceModel"
+    import HabitatModel from '../../../store/models/Core/HabitatModel'
+    import HabitatTypeModel from '../../../store/models/Core/HabitatTypeModel'
+    import PhysicalSensorModel from "../../../store/models/Monitoring/PhysicalSensorModel"
+    import StepperForm from "../StepperForm"
+    import StepperFormStep from "../StepperFormStep"
+    import StepperFormFinish from "../StepperFormFinish"
+    import LocationModel from "../../../store/models/Core/LocationModel"
+    import ApplianceGroupModel from "../../../store/models/Automation/ApplianceGroupModel"
 
     export default {
 
@@ -118,7 +118,7 @@
 
         components: {
             StepperFormStep, StepperFormFinish,
-            HabitatInline,
+            HabitatInline, AnimalInline,
             AutocompleteSelect
         },
 

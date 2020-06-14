@@ -137,7 +137,10 @@
             }
 
             this.loadPagination()
-            this.loadPage()
+
+            if (!this.noInitialLoad) {
+                this.loadPage()
+            }
         }
 
     }

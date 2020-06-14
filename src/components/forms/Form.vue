@@ -74,13 +74,13 @@
                 })
             },
 
-            onError (error) {
+            onError (errors) {
                 if (this.redirect.error != null) {
                     if (typeof this.redirect.error === "function") this.redirect.error()
                     else window.location.href = this.redirect.error
                 }
 
-                this.$toast.error(error)
+                this.$root.$emit('ErrorsFlashed', errors)
             }
         },
 

@@ -85,6 +85,22 @@
 
         <v-content>
             <loader> </loader>
+            <v-dialog v-model="error_dialog" width="unset">
+                <v-card>
+                    <v-card-title>Something went wrong</v-card-title>
+                    <v-card-text>
+                        <v-alert v-for="error in active_errors" border="left" colored-border :color="error.severity">
+                            {{ error.message }}
+                        </v-alert>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer> </v-spacer>
+                        <v-btn color="primary" ext @click="error_dialog = false">
+                            OK
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
             <v-container fluid>
                 <breadcrumbs> </breadcrumbs>
                 <router-view> </router-view>
@@ -114,6 +130,8 @@
 
         data () {
             return {
+                error_dialog: false,
+                active_errors: [],
                 route: {
                     prev: null
                 },
@@ -156,6 +174,11 @@
                 this.route.prev = from
 
                 next()
+            })
+
+            this.$root.$on('ErrorsFlashed', (errors, popup = true) => {
+                this.active_errors = errors
+                this.error_dialog = popup
             })
         }
 

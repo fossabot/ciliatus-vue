@@ -1,6 +1,6 @@
 <template>
     <span>
-        <v-btn text small :href="model.entity + '/' + object.id">
+        <v-btn outlined text small :href="model.entity + '/' + object.id">
             <v-icon left>{{ object._icon }}</v-icon>
             {{ object.name }}
         </v-btn>
