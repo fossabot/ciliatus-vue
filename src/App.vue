@@ -7,14 +7,15 @@
 
             <v-spacer/>
 
-            <v-text-field solo-inverted flat hide-details label="Search" prepend-inner-icon="search"/>
+            <v-text-field solo-inverted flat hide-details label="Search" prepend-inner-icon="mdi-magnify"/>
 
             <v-spacer/>
 
             <v-menu left bottom offset-y>
                 <template v-slot:activator="{ on }">
-                    <v-btn icon v-on="on">
-                        <v-icon>mdi-dots-vertical</v-icon>
+                    <v-btn text v-on="on">
+                        <template v-if="user">{{ user.name }}</template>
+                        <v-icon class="ml-2">mdi-account</v-icon>
                     </v-btn>
                 </template>
 
@@ -27,7 +28,7 @@
                             <v-list-item-title>{{ user.name }}</v-list-item-title>
                         </v-list-item>
 
-                        <v-list-item @click="$router.push('settings')">
+                        <v-list-item :to="user_model.view('show', user)">
                             <v-list-item-action>
                                 <v-icon>info</v-icon>
                             </v-list-item-action>
@@ -118,6 +119,8 @@
     import Link from "./util/Link";
     import router from "./router";
     import JSONBigInt from "json-bigint";
+    import UserModel from "./store/models/Common/UserModel";
+    import ModelFactory from "./store/models/ModelFactory";
 
     export default {
         props: {
@@ -135,12 +138,19 @@
                 route: {
                     prev: null
                 },
-                user: null,
+                user_model: UserModel,
+                user_id: null,
                 drawer: null,
                 items: routes.filter(item => item.menu)
                     .map((r) => {
                         return {to: r.path, icon: r.icon, text: r.meta.title}
                     })
+            }
+        },
+
+        computed: {
+            user () {
+                return UserModel.getQueryWithAllRelations().find(this.user_id)
             }
         },
 
@@ -156,7 +166,8 @@
                 axios.get(Link.api('auth/check'), {
                     transformResponse: [data => data]
                 }).then((response) => {
-                    this.user = JSONBigInt.parse(response.data).data
+                    this.user_id = JSONBigInt.parse(response.data).data.id
+                    ModelFactory.fetch(UserModel, this.user_id)
                 }, (error) => {
                     if (!error.response) return
                     if (error.response.status === 401 && router.currentRoute.name !== 'login') {

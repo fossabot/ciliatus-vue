@@ -25,6 +25,10 @@ import LogicalSensorTypeModel from "./models/Monitoring/LogicalSensorTypeModel"
 import PhysicalSensorModel from "./models/Monitoring/PhysicalSensorModel"
 import PhysicalSensorTypeModel from "./models/Monitoring/PhysicalSensorTypeModel"
 
+import UserModel from "./models/Common/UserModel"
+import UserSettingModel from "./models/Common/UserSettingModel"
+import PermissionModel from "./models/Common/PermissionModel"
+
 export default {
     ApplianceTypeModel: ApplianceTypeModel,
     ApplianceTypeStateModel: ApplianceTypeStateModel,
@@ -51,5 +55,9 @@ export default {
     LogicalSensorModel: LogicalSensorModel,
     LogicalSensorTypeModel: LogicalSensorTypeModel,
     PhysicalSensorModel: PhysicalSensorModel,
-    PhysicalSensorTypeModel: PhysicalSensorTypeModel
+    PhysicalSensorTypeModel: PhysicalSensorTypeModel,
+
+    UserModel: UserModel,
+    UserSettingModel: UserSettingModel,
+    PermissionModel: PermissionModel
 }
