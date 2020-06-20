@@ -6,6 +6,7 @@
     import { required, min, email } from 'vee-validate/dist/rules'
     import config from "../../config"
     import ErrorParser from "../../util/ErrorParser"
+    import Link from "../../util/Link";
 
     setInteractionMode('eager')
 
@@ -53,10 +54,6 @@
 
         methods: {
             async onSubmit () {
-                // If we have a stepper form, wie expect the form to be validated
-                let valid = this.stepper != null ? true : await this.$refs[this.validation._ref].validate()
-                if (!valid) return
-
                 axios[this.submit.action](this.url, this.form, {
                     transformResponse: [data => data]
                 }).then((response) => {
@@ -67,7 +64,7 @@
 
                     let resp = JSONBigInt.parse(response.data)
                     if (resp.data.length > 0) {
-                        window.location.href = config.web.basePath + config.web.prefix + resp.data[0]._entity + '/' + resp.data[0].id
+                        window.location.href = Link.link(resp.data[0]._entity + '/' + resp.data[0].id)
                     }
                 }).catch((error) => {
                     this.event.error(ErrorParser.parse(error))

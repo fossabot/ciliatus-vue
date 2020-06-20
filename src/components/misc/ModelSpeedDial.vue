@@ -4,10 +4,10 @@
         <template v-slot:activator>
             <v-btn v-model="fab" fab :color="fab ? 'normal' : 'primary'">
                 <v-icon v-if="fab">mdi-close</v-icon>
-                <v-icon v-else>mdi-account-circle</v-icon>
+                <v-icon v-else>mdi-cog</v-icon>
             </v-btn>
         </template>
-        <v-btn v-if="object && del" fab small color="error" :to="model.view('delete', object)">
+        <v-btn v-if="object && del" fab small color="error" :to="model.view('del', object)">
             <v-icon>mdi-delete</v-icon>
         </v-btn>
         <v-btn v-if="object && edit" fab small color="warning" :to="model.view('edit', object)">

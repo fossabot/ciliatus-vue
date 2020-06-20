@@ -9,11 +9,20 @@
         data () {
             return {
                 stepper: 1,
-                steps: null
+                steps: null,
+                event: {
+                    submit: this.onStepperSubmit
+                }
             }
         },
 
         methods: {
+            async onStepperSubmit () {
+                let valid = this.stepper != null ? true : await this.$refs[this.validation._ref].validate()
+                if (!valid) return
+
+                await this.onSubmit();
+            },
             onGoBack () {
                 this.stepper--
             },
