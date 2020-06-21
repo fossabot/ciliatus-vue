@@ -40,6 +40,10 @@
   word-break: normal;
 }
 
+.v-list-item__title > a {
+  text-decoration: none;
+}
+
 /*
  * Components use .card-active and .card-inactive to color the left border depending on their state
  */

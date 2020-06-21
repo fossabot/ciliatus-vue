@@ -5,7 +5,16 @@
                 <v-icon><slot name="icon"> </slot></v-icon>
             </v-list-item-avatar>
             <v-list-item-content>
-                <v-list-item-title class="title"><slot name="title"> </slot></v-list-item-title>
+                <v-list-item-title class="title">
+                    <template v-if="link">
+                        <router-link :to="link">
+                            <slot name="title"> </slot>
+                        </router-link>
+                    </template>
+                    <template v-else>
+                        <slot name="title"> </slot>
+                    </template>
+                </v-list-item-title>
                 <v-list-item-subtitle>
                     <slot name="subtitle"> </slot>
                     <span class="float-right"><slot name="error"> </slot></span>
@@ -20,7 +29,8 @@
 <script>
     export default {
         props: {
-            noSeparator: Boolean
+            noSeparator: Boolean,
+            link: null
         }
     }
 </script>

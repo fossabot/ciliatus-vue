@@ -31,17 +31,15 @@
 
 <script>
     import SingleComponent from "../../SingleComponent"
-    import ModelFactory from "../../../store/models/ModelFactory"
     import HabitatRender from "../../misc/HabitatRender"
     import HabitatModel from "../../../store/models/Core/HabitatModel"
-    import MonitorCardSubtitle from "../MonitorCardSubtitle";
     import CardTitle from "../CardTitle";
 
     export default {
         extends: SingleComponent,
 
         components: {
-            HabitatRender, MonitorCardSubtitle, CardTitle
+            HabitatRender, CardTitle
         },
 
         props: {

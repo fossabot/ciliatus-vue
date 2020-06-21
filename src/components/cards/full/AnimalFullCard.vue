@@ -1,7 +1,7 @@
 <template>
     <v-skeleton-loader :loading="initial" transition="fade-transitions" height="120" type="card">
         <v-card :loading="loading" outlined>
-            <card-title v-if="object">
+            <card-title v-if="object" :link="model.view('show', object)">
                 <template v-slot:icon>{{ object._icon }}</template>
                 <template v-slot:title>{{ object.name }}</template>
                 <template v-slot:subtitle>{{ object.species_name }}</template>
@@ -15,22 +15,41 @@
             <v-divider />
 
             <v-card-actions>
-                <v-btn text>Details</v-btn>
-
                 <v-spacer />
+
+                <error-icon v-if="error"> </error-icon>
 
                 <v-tooltip top>
                     <template v-slot:activator="{ on }">
-                        <v-btn icon v-on="on" v-show="error">
-                            <v-icon color="red">mdi-alert-circle-outline</v-icon>
+                        <v-btn icon @click="refresh()">
+                            <v-icon v-on="on">mdi-refresh</v-icon>
                         </v-btn>
                     </template>
-                    <span>{{ error }}</span>
+                    <span>Refresh Animal</span>
                 </v-tooltip>
 
-                <v-btn icon @click="refresh()">
-                    <v-icon>mdi-refresh</v-icon>
-                </v-btn>
+                <router-link :to="model.view('edit', object)">
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                            <v-btn icon>
+                                <v-icon v-on="on">mdi-pencil</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Edit Animal</span>
+                    </v-tooltip>
+                </router-link>
+
+                <router-link :to="model.view('show', object)">
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                            <v-btn icon>
+                                <v-icon v-on="on">mdi-eye</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Show Animal</span>
+                    </v-tooltip>
+                </router-link>
+
             </v-card-actions>
         </v-card>
     </v-skeleton-loader>
@@ -40,13 +59,14 @@
     import SingleComponent from "../../SingleComponent"
     import ModelFactory from "../../../store/models/ModelFactory"
     import AnimalModel from "../../../store/models/Core/AnimalModel"
-    import CardTitle from "../CardTitle";
+    import CardTitle from "../CardTitle"
+    import ErrorIcon from "../../misc/ErrorIcon"
 
     export default {
         extends: SingleComponent,
 
         components: {
-            CardTitle
+            CardTitle, ErrorIcon
         },
 
         data () {

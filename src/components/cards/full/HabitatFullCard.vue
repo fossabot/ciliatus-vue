@@ -2,7 +2,7 @@
         <v-skeleton-loader v-if="initial" transition="fade-transitions" height="120" type="card">
         </v-skeleton-loader>
         <v-card :loading="loading" v-else-if="object" outlined>
-            <card-title v-if="object">
+            <card-title v-if="object" :link="model.view('show', object)">
                 <template v-slot:icon>mdi-application</template>
                 <template v-slot:title>{{ object.name }}</template>
                 <template v-slot:subtitle>{{ object.type.name }}</template>
@@ -19,24 +19,48 @@
 
             <habitat-render v-if="withRender" :linked-object="object"> </habitat-render>
 
-            <monitor-card-subtitle :monitor="object._monitor"> </monitor-card-subtitle>
-
             <v-divider />
 
             <v-card-actions>
                 <v-btn v-if="withRender" text @click="render" :loading="renderLoading">Render</v-btn>
 
-                <router-link :to="'habitats/' + object.id">
-                    <v-btn text>Details</v-btn>
-                </router-link>
+                <monitor-chips :monitor="object._monitor"> </monitor-chips>
 
                 <v-spacer />
 
                 <error-icon v-if="error"> </error-icon>
 
-                <v-btn icon @click="refresh()">
-                    <v-icon>mdi-refresh</v-icon>
-                </v-btn>
+                <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                        <v-btn icon @click="refresh()">
+                            <v-icon v-on="on">mdi-refresh</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Refresh Habitat</span>
+                </v-tooltip>
+
+                <router-link :to="model.view('edit', object)">
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                            <v-btn icon>
+                                <v-icon v-on="on">mdi-pencil</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Edit Habitat</span>
+                    </v-tooltip>
+                </router-link>
+
+                <router-link :to="model.view('show', object)">
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                            <v-btn icon>
+                                <v-icon v-on="on">mdi-eye</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Show Habitat</span>
+                    </v-tooltip>
+                </router-link>
+
             </v-card-actions>
         </v-card>
 </template>
@@ -48,14 +72,14 @@
     import ErrorIcon from "../../misc/ErrorIcon"
     import HabitatRender from "../../misc/HabitatRender"
     import HabitatModel from "../../../store/models/Core/HabitatModel"
-    import MonitorCardSubtitle from "../MonitorCardSubtitle";
-    import CardTitle from "../CardTitle";
+    import MonitorChips from "../../misc/MonitorChips"
+    import CardTitle from "../CardTitle"
 
     export default {
         extends: SingleComponent,
 
         components: {
-            AnimalList, ErrorIcon, HabitatRender, MonitorCardSubtitle, CardTitle
+            AnimalList, ErrorIcon, HabitatRender, MonitorChips, CardTitle
         },
 
         props: {

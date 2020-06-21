@@ -15,8 +15,6 @@
             <template v-slot:subtitle>Location: {{ object.type.name }}</template>
         </card-title>
 
-        <monitor-card-subtitle :monitor="object._monitor"> </monitor-card-subtitle>
-
         <v-card-actions v-if="!noActions">
             <v-spacer />
 
@@ -31,14 +29,13 @@
     import SingleComponent from "../../SingleComponent"
     import ModelFactory from "../../../store/models/ModelFactory"
     import LocationModel from "../../../store/models/Core/LocationModel"
-    import MonitorCardSubtitle from "../MonitorCardSubtitle"
     import CardTitle from "../CardTitle"
 
     export default {
         extends: SingleComponent,
 
         components: {
-            MonitorCardSubtitle, CardTitle
+            CardTitle
         },
 
         data () {

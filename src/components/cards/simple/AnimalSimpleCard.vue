@@ -29,7 +29,6 @@
 <script>
     import SingleComponent from "../../SingleComponent"
     import ModelFactory from "../../../store/models/ModelFactory"
-    import MonitorCardSubtitle from "../MonitorCardSubtitle"
     import CardTitle from "../CardTitle"
     import AnimalModel from "../../../store/models/Core/AnimalModel"
 
@@ -37,7 +36,7 @@
         extends: SingleComponent,
 
         components: {
-           MonitorCardSubtitle, CardTitle
+            CardTitle
         },
 
         data () {
